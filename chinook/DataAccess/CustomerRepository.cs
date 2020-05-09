@@ -17,7 +17,7 @@ namespace chinook.DataAccess
                     CustomerId,
                     Country
                 from Customer
-                where Customer.Country = 'Brazil'";
+                where Customer.Country = @country";
 
             using (var db = new SqlConnection(ConnectionString))
             {
@@ -25,7 +25,7 @@ namespace chinook.DataAccess
 
                 var cmd = db.CreateCommand();
                 cmd.CommandText = sql;
-                cmd.Parameters.AddWithValue("Country", country);
+                cmd.Parameters.AddWithValue("country", country);
 
                 var reader = cmd.ExecuteReader();
                 var customers = new List<Customer>();
@@ -52,8 +52,7 @@ namespace chinook.DataAccess
         {
             var sql = @"SELECT FirstName, LastName, CustomerId, Country 
                 FROM Customer
-                WHERE Country != 'United States'
-                AND Country != 'USA';";
+                WHERE Country != @country";
 
 
             using (var connection = new SqlConnection(ConnectionString))
@@ -62,7 +61,7 @@ namespace chinook.DataAccess
 
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = sql;
-                cmd.Parameters.AddWithValue("Country", "USA");
+                cmd.Parameters.AddWithValue("country", country);
 
                 var reader = cmd.ExecuteReader();
                 var nonUsaCustomers = new List<Customer>();
@@ -92,7 +91,7 @@ namespace chinook.DataAccess
                         FROM Customer
 	                    JOIN Invoice
 		                ON Customer.CustomerId = Invoice.CustomerId
-		                WHERE Customer.Country = 'Brazil';";
+		                WHERE Customer.Country = @country;";
        
 
             using (var connection = new SqlConnection(ConnectionString)) 
@@ -101,7 +100,7 @@ namespace chinook.DataAccess
 
                 var cmd = connection.CreateCommand();
                 cmd.CommandText = sql;
-                cmd.Parameters.AddWithValue("Country", "Brazil");
+                cmd.Parameters.AddWithValue("country", country);
 
                 var reader = cmd.ExecuteReader();
 
