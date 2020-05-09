@@ -11,7 +11,7 @@ namespace chinook.Controllers
 {
     [Route("api/customer")]
     [ApiController]
-    public class ChinookController : ControllerBase
+    public class CustomerController : ControllerBase
     {
        //GET: api/Customer/country/brazilCustomers
        [HttpGet(template:"{country}/brazilCustomers")]
